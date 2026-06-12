@@ -63,7 +63,8 @@ export default function Paquetes() {
 
   // 2. Cargar paquetes desde el Backend al montar la página
   useEffect(() => {
-    fetch('https://brilia-backend.onrender.com/api/citas-ocupadas')
+    // 🔍 RUTA CORREGIDA: Ahora apunta correctamente a /api/paquetes para traer el catálogo
+    fetch('https://brilia-backend.onrender.com/api/paquetes') 
       .then((res) => res.json())
       .then((res) => {
         if (res.data) setPaquetes(res.data);
@@ -81,7 +82,7 @@ export default function Paquetes() {
 
     const fechaFormateada = fechaCita.toISOString().split('T')[0];
     
-    // 🔍 CORREGIDO: Se eliminó el residuo del localhost anterior que rompía la sintaxis del string literal
+    // 🔍 SINTAXIS CORREGIDA: Se limpió el residuo del localhost que causaba error en el string literal
     fetch(`https://brilia-backend.onrender.com/api/citas-ocupadas?fecha=${fechaFormateada}`)
       .then((res) => res.json())
       .then((res) => {
@@ -151,7 +152,7 @@ export default function Paquetes() {
     });
 
     try {
-      // 🔍 CORREGIDO: Se cambió 'http://localhost:3005' por la URL pública de tu backend en Render
+      // 🔍 URL ACTUALIZADA: Conexión directa con tu servidor en Render
       const response = await fetch('https://brilia-backend.onrender.com/api/create-preference', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -181,6 +182,7 @@ export default function Paquetes() {
     } catch (error) {
       console.error("Error en el flujo de agendado:", error);
     } finally {
+      // 🔍 PALABRA CLAVE CORREGIDA: Se cambió 'file' por 'finally' para corregir el bug sintáctico
       setIsCargandoPago(false);
     }
   };
