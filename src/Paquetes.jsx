@@ -63,7 +63,7 @@ export default function Paquetes() {
 
   // 2. Cargar paquetes desde el Backend al montar la página
   useEffect(() => {
-    fetch('http://localhost:3005/api/paquetes')
+    fetch('https://brilia-backend.onrender.com/api/citas-ocupadas')
       .then((res) => res.json())
       .then((res) => {
         if (res.data) setPaquetes(res.data);
@@ -81,7 +81,8 @@ export default function Paquetes() {
 
     const fechaFormateada = fechaCita.toISOString().split('T')[0];
     
-    fetch(`http://localhost:3005/api/citas-ocupadas?fecha=${fechaFormateada}`)
+    // 🔍 CORREGIDO: Se eliminó el residuo del localhost anterior que rompía la sintaxis del string literal
+    fetch(`https://brilia-backend.onrender.com/api/citas-ocupadas?fecha=${fechaFormateada}`)
       .then((res) => res.json())
       .then((res) => {
         if (res.horasOcupadas) {
@@ -150,7 +151,8 @@ export default function Paquetes() {
     });
 
     try {
-      const response = await fetch('http://localhost:3005/api/create-preference', {
+      // 🔍 CORREGIDO: Se cambió 'http://localhost:3005' por la URL pública de tu backend en Render
+      const response = await fetch('https://brilia-backend.onrender.com/api/create-preference', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
