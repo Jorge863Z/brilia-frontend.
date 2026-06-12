@@ -172,17 +172,20 @@ export default function Paquetes() {
         }),
       });
 
-      const data = await response.json();
+     const data = await response.json();
       if (data.id) {
-        window.open(`https://www.mercadopago.com.mx/checkout/v1/redirect?pref_id=${data.id}`, '_blank');
+        // 🌟 CORREGIDO: Redirección en la misma pestaña para saltarse el bloqueo de Pop-ups de Chrome/Safari
+        window.location.href = `https://www.mercadopago.com.mx/checkout/v1/redirect?pref_id=${data.id}`;
+        
+        // Limpiamos estados antes de irnos
         setIsModalOpen(false);
       } else {
         alert("Error al generar la pasarela de pago");
       }
     } catch (error) {
       console.error("Error en el flujo de agendado:", error);
+      alert("Hubo un problema al conectar con el servidor.");
     } finally {
-      // 🔍 PALABRA CLAVE CORREGIDA: Se cambió 'file' por 'finally' para corregir el bug sintáctico
       setIsCargandoPago(false);
     }
   };
